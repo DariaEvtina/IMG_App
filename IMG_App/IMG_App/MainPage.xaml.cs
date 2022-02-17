@@ -30,11 +30,23 @@ namespace IMG_App
                 Text = "Valgusfoor Page",
                 BackgroundColor = Color.Firebrick
             };
+            Button RGB_btn = new Button
+            {
+                Text = "RGB Page",
+                BackgroundColor = Color.Firebrick
+            };
             st.Children.Add(frame_btn);
+            st.Children.Add(RGB_btn);
             st.Children.Add(valgusfor_btn);
             valgusfor_btn.Clicked += Valgusfor_btn_Clicked;
             frame_btn.Clicked += Frame_btn_Clicked;
+            RGB_btn.Clicked += RGB_btn_Clicked;
             Content = st;
+        }
+
+        private async void RGB_btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new rgbPAGE());
         }
 
         private async void Valgusfor_btn_Clicked(object sender, EventArgs e)
