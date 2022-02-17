@@ -115,26 +115,26 @@ namespace IMG_App
         }
         public void testColor()
         {
-           /* if (sldRed.Value >= 200 && sldRed.Value > sldGreen.Value && sldBlue.Value > sldGreen.Value && Convert.ToInt32(sldBlue.Value) <= 230)
+            if (sldRed.Value >= 200 && sldRed.Value > sldGreen.Value && sldBlue.Value > sldGreen.Value && sldBlue.Value <= 230 && sldBlue.Value >= 23 || sldBlue.Value <= 230 && sldBlue.Value>100)
             {
                 tittle1.Text = "Pink";
             }
-            else if (sldRed.Value > sldBlue.Value && sldRed.Value > sldGreen.Value && sldBlue.Value > sldGreen.Value && Convert.ToInt32(sldBlue.Value) >= 230)
+            else if (sldRed.Value < sldBlue.Value && sldRed.Value > sldGreen.Value && sldBlue.Value > sldGreen.Value || sldBlue.Value >= 230 && sldRed.Value > 60)
             {
                 tittle1.Text = "Purple";
             }
-            else if (sldRed.Value > sldBlue.Value && sldRed.Value > sldGreen.Value && sldBlue.Value < sldGreen.Value && Convert.ToInt32(sldGreen.Value) < 100 || sldRed.Value <= 255 && sldRed.Value > 200)
+            else if (sldRed.Value > sldBlue.Value && sldRed.Value > sldGreen.Value || sldRed.Value <= 255 )
             {
                 tittle1.Text = "Red";
             }
-            else if (sldBlue.Value <= 255 && sldBlue.Value > sldGreen.Value && sldBlue.Value > sldRed.Value)
+            else if (sldBlue.Value <= 255 || sldBlue.Value > sldGreen.Value && sldRed.Value <= 60)
             {
                 tittle1.Text = "Blue";
             }
-            else if (sldGreen.Value <= 255 && sldBlue.Value < sldGreen.Value && sldBlue.Value < sldRed.Value)
+            else if (sldGreen.Value <= 255 || sldBlue.Value < sldGreen.Value && sldGreen.Value > sldRed.Value && sldRed.Value <= 60)
             {
                 tittle1.Text = "Green";
-            }*/
+            }
         }
         private void SldGreen_ValueChanged(object sender, ValueChangedEventArgs e)
         {
