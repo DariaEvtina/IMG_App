@@ -16,6 +16,8 @@ namespace IMG_App
         int theme = 1;
         int clicks=0;
         Grid grid2X1, grid3X3;
+        Color colorE = Color.Yellow;
+        Color colorT = Color.Red;
         BoxView b;
         Button uus_mang;
         Button teema;
@@ -74,10 +76,28 @@ namespace IMG_App
                 theme= 2;
             }
         }
-
+        public async void colorValitama()
+        {
+            string valik = await DisplayPromptAsync("Miline värvi?", "yellow/red-1 ,blue/black-2 või gold/magenta - 3", initialValue: "1", maxLength: 1, keyboard: Keyboard.Numeric);
+            if (valik == "1")
+            {
+                colorE = Color.Yellow;
+                colorT = Color.Red;
+            }
+            else if(valik == "2")
+            {
+                colorE = Color.Blue;
+                colorT = Color.Black;
+            }
+            else
+            {
+                colorE = Color.Gold;
+                colorT = Color.Magenta;
+            }
+        }
         public async void Kes_on_esimene()
         {
-            string esimene_valik = await DisplayPromptAsync("Kes on esimene?", "Tee valiku Kollane-1 või Punane-2", initialValue: "1", maxLength: 1, keyboard: Keyboard.Numeric);
+            string esimene_valik = await DisplayPromptAsync("Kes on esimene?", "Tee valiku esimene-1 või teine-2", initialValue: "1", maxLength: 1, keyboard: Keyboard.Numeric);
             if (esimene_valik == "1")
             {
                 esimene = true;
@@ -110,6 +130,11 @@ namespace IMG_App
             if (uus)
             {
                 Kes_on_esimene();
+                bool uusclr = await DisplayAlert("Uus color", "Kas sa soovin valima varvi?", "jah", "Ei");
+                if (uusclr)
+                {
+                    colorValitama();
+                }
                 Tulemused = new int[3, 3];
                 tulemus = 0;
                 grid3X3 = new Grid
@@ -223,36 +248,22 @@ namespace IMG_App
            var c = Grid.GetColumn(b);
            if (esimene == true)
            {
-                if (b.BackgroundColor != Color.Yellow || b.BackgroundColor != Color.Gold)
+                if (b.BackgroundColor != colorE)
                 {
                     clicks++;
                 }
-                if (theme==1)
-                {
-                    b = new BoxView { BackgroundColor = Color.Yellow };
-                }
-                else
-                {
-                    b = new BoxView { BackgroundColor = Color.Gold };
-                }
+                b = new BoxView { BackgroundColor = colorE };
                 esimene = false;
                 Tulemused[r, c] = 1;
                 
            }
            else if (esimene == false)
            {
-                if (b.BackgroundColor != Color.Red || b.BackgroundColor != Color.Magenta)
+                if (b.BackgroundColor != colorT || b.BackgroundColor != Color.Magenta)
                 {
                     clicks++;
                 }
-                if (theme == 1)
-                {
-                    b = new BoxView { BackgroundColor = Color.Red };
-                }
-                else
-                {
-                    b = new BoxView { BackgroundColor = Color.Magenta };
-                }
+                b = new BoxView { BackgroundColor = colorT };
                 esimene = true;
                Tulemused[r, c] = 2;
                 
