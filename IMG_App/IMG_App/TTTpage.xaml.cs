@@ -259,7 +259,7 @@ namespace IMG_App
            }
            else if (esimene == false)
            {
-                if (b.BackgroundColor != colorT || b.BackgroundColor != Color.Magenta)
+                if (b.BackgroundColor != colorT )
                 {
                     clicks++;
                 }
