@@ -14,12 +14,14 @@ namespace IMG_App
     {
         //public bool bot;
         int theme = 1;
+        int clicks=0;
         Grid grid2X1, grid3X3;
         BoxView b;
         Button uus_mang;
+        Button teema;
         public bool esimene;
         int tulemus = 0;
-        Random rnd;
+        //Random rnd;
         int[,] Tulemused = new int[3, 3];
         public TTTpage()
         {
@@ -45,10 +47,34 @@ namespace IMG_App
             {
                 Text = "Uus mäng"
             };
+            teema = new Button()
+            {
+                Text = "liidse teema"
+            };
             grid2X1.Children.Add(uus_mang, 0, 1);
+            grid2X1.Children.Add(teema, 0, 2);
             uus_mang.Clicked += Uus_mang_Clicked;
+            teema.Clicked += Teema_Clicked;
             Content = grid2X1;
         }
+
+        private void Teema_Clicked(object sender, EventArgs e)
+        {
+            teema_v();
+        }
+        public async void teema_v()
+        {
+            string valik = await DisplayPromptAsync("Millisse teema?", "Teemas: default-1 või purple-2", initialValue: "1", maxLength: 1, keyboard: Keyboard.Numeric);
+            if (valik == "1")
+            {
+                theme = 1;
+            }
+            else
+            {
+                theme= 2;
+            }
+        }
+
         public async void Kes_on_esimene()
         {
             string esimene_valik = await DisplayPromptAsync("Kes on esimene?", "Tee valiku Kollane-1 või Punane-2", initialValue: "1", maxLength: 1, keyboard: Keyboard.Numeric);
@@ -88,7 +114,6 @@ namespace IMG_App
                 tulemus = 0;
                 grid3X3 = new Grid
                 {
-                    BackgroundColor = Color.Black,
                     RowDefinitions =
                 {
                     new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
@@ -102,11 +127,26 @@ namespace IMG_App
                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
                 }
                 };
+                if (theme==1)
+                {
+                    grid3X3.BackgroundColor = Color.Black;
+                }
+                else if (theme == 2)
+                {
+                    grid3X3.BackgroundColor = Color.Purple;
+                }
                   for (int i = 0; i < 3; i++)
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            b = new BoxView { BackgroundColor = Color.White };
+                            if (theme == 1)
+                            {
+                                b = new BoxView { BackgroundColor = Color.White };
+                            }
+                            else if (theme == 2)
+                            {
+                                b = new BoxView { BackgroundColor = Color.LightPink };
+                            }
                             grid3X3.Children.Add(b, j, i);
                             TapGestureRecognizer tap = new TapGestureRecognizer();
                             tap.Tapped += Tap_Tapped;
@@ -162,10 +202,17 @@ namespace IMG_App
             if (tulemus == 1)
             {
                 DisplayAlert("Võit", "Esimine on võitja!", "Ok");
+                clicks = 0;
             }
             else if (tulemus == 2)
             {
                 DisplayAlert("Võit", "Teine on võitja!", "Ok");
+                clicks = 0;
+            }
+            else if (tulemus == 0 && clicks==9)
+            {
+                DisplayAlert("Võit", "viik", "Ok");
+                clicks = 0;
             }
         }
         private void Tap_Tapped(object sender, EventArgs e)
@@ -174,22 +221,22 @@ namespace IMG_App
            var b = (BoxView)sender;
            var r = Grid.GetRow(b);
            var c = Grid.GetColumn(b);
-            /*if (bot==false)
-            {*/
-                if (esimene == true)
-                {
-                    b = new BoxView { BackgroundColor = Color.Yellow };
-                    esimene = false;
-                    Tulemused[r, c] = 1;
-                }
-                else if (esimene == false)
-                {
-                    b = new BoxView { BackgroundColor = Color.Red };
-                    esimene = true;
-                    Tulemused[r, c] = 2;
-                }
-                grid3X3.Children.Add(b, c, r);
-                Lopp();
+           if (esimene == true)
+           {
+                b = new BoxView { BackgroundColor = Color.Yellow };
+                esimene = false;
+                Tulemused[r, c] = 1;
+                clicks++;
+           }
+           else if (esimene == false)
+           {
+               b = new BoxView { BackgroundColor = Color.Red };
+               esimene = true;
+               Tulemused[r, c] = 2;
+                clicks++;
+            }
+           grid3X3.Children.Add(b, c, r);
+           Lopp();
             /*}
             else if (bot==true)
             {
