@@ -42,7 +42,7 @@ namespace IMG_App
                 },
             };
 
-            Uus_mang();
+            //Uus_mang();
             uus_mang = new Button()
             {
                 Text = "Uus mäng"
@@ -223,17 +223,39 @@ namespace IMG_App
            var c = Grid.GetColumn(b);
            if (esimene == true)
            {
-                b = new BoxView { BackgroundColor = Color.Yellow };
+                if (b.BackgroundColor != Color.Yellow || b.BackgroundColor != Color.Gold)
+                {
+                    clicks++;
+                }
+                if (theme==1)
+                {
+                    b = new BoxView { BackgroundColor = Color.Yellow };
+                }
+                else
+                {
+                    b = new BoxView { BackgroundColor = Color.Gold };
+                }
                 esimene = false;
                 Tulemused[r, c] = 1;
-                clicks++;
+                
            }
            else if (esimene == false)
            {
-               b = new BoxView { BackgroundColor = Color.Red };
-               esimene = true;
+                if (b.BackgroundColor != Color.Red || b.BackgroundColor != Color.Magenta)
+                {
+                    clicks++;
+                }
+                if (theme == 1)
+                {
+                    b = new BoxView { BackgroundColor = Color.Red };
+                }
+                else
+                {
+                    b = new BoxView { BackgroundColor = Color.Magenta };
+                }
+                esimene = true;
                Tulemused[r, c] = 2;
-                clicks++;
+                
             }
            grid3X3.Children.Add(b, c, r);
            Lopp();
