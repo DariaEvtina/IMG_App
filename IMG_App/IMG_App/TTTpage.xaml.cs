@@ -13,11 +13,12 @@ namespace IMG_App
     public partial class TTTpage : ContentPage
     {
         //public bool bot;
+        int theme = 1;
         Grid grid2X1, grid3X3;
         BoxView b;
         Button uus_mang;
         public bool esimene;
-        int tulemus = -1;
+        int tulemus = 0;
         Random rnd;
         int[,] Tulemused = new int[3, 3];
         public TTTpage()
@@ -209,8 +210,8 @@ namespace IMG_App
                 }
                 grid3X3.Children.Add(b, c, r);
                 Lopp();
-            }
-        }*/
-    
+            }*/
+        }
+
     }
 }
