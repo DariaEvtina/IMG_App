@@ -35,13 +35,25 @@ namespace IMG_App
                 Text = "RGB Page",
                 BackgroundColor = Color.Firebrick
             };
+            Button ttt_btn = new Button
+            {
+                Text = "TripsTrapsTrüll Page",
+                BackgroundColor = Color.Firebrick
+            };
             st.Children.Add(frame_btn);
             st.Children.Add(RGB_btn);
             st.Children.Add(valgusfor_btn);
+            st.Children.Add(ttt_btn);
+            ttt_btn.Clicked += Ttt_btn_Clicked;
             valgusfor_btn.Clicked += Valgusfor_btn_Clicked;
             frame_btn.Clicked += Frame_btn_Clicked;
             RGB_btn.Clicked += RGB_btn_Clicked;
             Content = st;
+        }
+
+        private async void Ttt_btn_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TTTpage());
         }
 
         private async void RGB_btn_Clicked(object sender, EventArgs e)
